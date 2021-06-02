@@ -8,13 +8,9 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Network;
+import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import com.sayo.homeworkmanagementsystem.utils.Md5;
 import okhttp3.*;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText loginUserId;
@@ -56,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                         loginStudent.setChecked(true);
                         int userType = getUserType();
 
-                        Response response = Network.login(_userId, login_password.getText().toString(), userType);
+                        Response response = NetworkAPI.login(_userId, login_password.getText().toString(), userType);
                         if (response == null) {
                             // 访问服务器失败
                             Log.d("error", "网络连接失败");
@@ -68,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } else {
                             // 访问服务器成功
-                            final String message = (String) Network.parseResponse(TAG, response);
+                            final String message = (String) NetworkAPI.parseResponse(TAG, response);
                             if ("success".equals(message)) {
                                 // 登录成功
                                 runOnUiThread(new Runnable() {

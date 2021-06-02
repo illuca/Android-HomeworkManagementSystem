@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Network;
+import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,7 +60,7 @@ private Button submit;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url= Network.SERVER_ADDRESS +"/user/register";
+                    String url= NetworkAPI.SERVER_ADDRESS +"/user/register";
                     RequestQueue requestQueue=Volley.newRequestQueue(RegistActivity.this);
                     JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url,jsonObject, new Response.Listener<JSONObject>() {
                         @Override

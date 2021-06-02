@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Network;
+import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -97,7 +97,7 @@ public class UpdateItemActivity extends AppCompatActivity {
 
     private void updateInfo(int id, String book_name, String shutu, String author, String info, String lianjie) {
         JSONObject jsonObject=new JSONObject();
-        String url = Network.SERVER_ADDRESS +"/item/updateItem?id=" + id + "&book_name=" + book_name + "&book_img=" + shutu + "&book_author=" + author + "&book_info=" + info + "&book_download=" + lianjie + "";
+        String url = NetworkAPI.SERVER_ADDRESS +"/item/updateItem?id=" + id + "&book_name=" + book_name + "&book_img=" + shutu + "&book_author=" + author + "&book_info=" + info + "&book_download=" + lianjie + "";
 
         RequestQueue requestQueue= Volley.newRequestQueue(UpdateItemActivity.this);
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {

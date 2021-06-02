@@ -10,7 +10,7 @@
               android:divider="?android:attr/dividerHorizontal"
               android:orientation="horizontal"
               android:showDividers="middle"
-              tools:context=".HomeworkItemListActivity">
+              tools:context=".fragment.HomeworkItemListActivity">
 
     <!--
     This layout is a two-pane layout for the HomeworkItems master/detail flow.
@@ -26,7 +26,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.sayo.homeworkmanagementsystem.HomeworkItemListActivity"
+            tools:context="com.sayo.homeworkmanagementsystem.fragment.HomeworkItemListActivity"
             tools:listitem="@layout/homeworkitem_list_content"/>
 
     <FrameLayout

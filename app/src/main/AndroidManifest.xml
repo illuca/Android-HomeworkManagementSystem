@@ -14,7 +14,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:usesCleartextTraffic="true">
         <activity
-                android:name=".HomeworkItemListActivity"
+                android:name=".fragment.HomeworkItemListActivity"
                 android:label="@string/title_homeworkitem_list"
                 android:theme="@style/NoActionBar">
 
@@ -22,29 +22,31 @@
         <activity
                 android:name=".HomeworkItemDetailActivity"
                 android:label="@string/title_homeworkitem_detail"
-                android:parentActivityName=".HomeworkItemListActivity"
+                android:parentActivityName=".fragment.HomeworkItemListActivity"
                 android:theme="@style/NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.sayo.homeworkmanagementsystem.HomeworkItemListActivity"/>
+                    android:value="com.sayo.homeworkmanagementsystem.fragment.HomeworkItemListActivity"/>
         </activity>
         <activity android:name=".activity.BanBenActivity"/>
         <activity android:name=".activity.UpdateItemActivity"/>
         <activity android:name=".activity.UpdateActity"/>
         <activity android:name=".activity.AddActivity"/>
         <activity android:name=".activity.XiangQingActivity"/>
-        <activity android:name=".activity.MenuActivity"/> <!-- 9.0闪退 -->
+        <activity android:name=".activity.MenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity> <!-- 9.0闪退 -->
         <uses-library
                 android:name="org.apache.http.legacy"
                 android:required="false"/>
 
         <activity android:name=".activity.RegistActivity"/>
         <activity android:name=".activity.LoginActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN"/>-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--            </intent-filter>-->
         </activity>
     </application>
 

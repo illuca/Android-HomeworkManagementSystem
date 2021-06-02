@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Network;
+import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,7 +81,7 @@ private ImageView img;
     }
     private void Add(String name,String img,String author,String info,String lianjie){
         JSONObject jsonObject=new JSONObject();
-       String url= Network.SERVER_ADDRESS +"/item/insertItem?book_name="+name+"&book_img="+img+"&book_author="+author+"&book_info="+info+"&book_download="+lianjie+"";
+       String url= NetworkAPI.SERVER_ADDRESS +"/item/insertItem?book_name="+name+"&book_img="+img+"&book_author="+author+"&book_info="+info+"&book_download="+lianjie+"";
         RequestQueue requestQueue= Volley.newRequestQueue(AddActivity.this);
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override

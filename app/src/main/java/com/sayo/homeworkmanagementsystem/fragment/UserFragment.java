@@ -31,26 +31,27 @@ public class UserFragment extends Fragment {
     private Button tuichu;
 
     private LinearLayout lyBanben;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_wode,null);
+        return inflater.inflate(R.layout.fragment_wode, null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        hBack=view.findViewById(R.id.h_back);
-        hHead=view.findViewById(R.id.h_head);
-        muser_name=view.findViewById(R.id.user_name);
-        muser_val=view.findViewById(R.id.user_val);
-        tuichu=view.findViewById(R.id.btn_tuichudenglu);
-        lyBanben=view.findViewById(R.id.ly_banben);
+        hBack = view.findViewById(R.id.h_back);
+        hHead = view.findViewById(R.id.h_head);
+        muser_name = view.findViewById(R.id.user_name);
+        muser_val = view.findViewById(R.id.user_val);
+        tuichu = view.findViewById(R.id.btn_tuichudenglu);
+        lyBanben = view.findViewById(R.id.ly_banben);
         tuichu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences=getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -64,15 +65,14 @@ public class UserFragment extends Fragment {
             }
         });
 
-        String username = getArguments().getString("username");
-        muser_name.setText(username);
-        String phone = getArguments().getString("phone").replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
-        muser_val.setText(phone);
+        String userId = getArguments().getString("userId");
+        muser_name.setText(userId);
+        // String phone = getArguments().getString("phone").replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+        // muser_val.setText(phone);
 
-        Glide.with(getActivity()).load(R.drawable.admin).bitmapTransform(new BlurTransformation(getActivity(),25),new CenterCrop(getActivity()))
+        Glide.with(getActivity()).load(R.drawable.admin).bitmapTransform(new BlurTransformation(getActivity(), 25), new CenterCrop(getActivity()))
                 .into(hBack);
 
         Glide.with(getActivity()).load(R.drawable.admin).bitmapTransform(new CropCircleTransformation(getActivity())).into(hHead);
-
     }
 }

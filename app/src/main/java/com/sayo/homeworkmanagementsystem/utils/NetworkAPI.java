@@ -6,9 +6,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Network {
+public class NetworkAPI {
     public static String SERVER_ADDRESS = "http://192.168.8.118:9090";
+    public static String url; // TODO 测试用
 
     public static Response login(String userId, String password, int userType) {
         try {
@@ -21,7 +24,7 @@ public class Network {
             OkHttpClient okHttpClient = new OkHttpClient();
             RequestBody requestBody = RequestBody.create(mediaType, jsonObject.toString());
 
-            String url = Network.SERVER_ADDRESS + "/user/login";
+            String url = NetworkAPI.SERVER_ADDRESS + "/user/login";
             // String url = "https://www.bilibili.com";
             Request request = new Request.Builder()
                     .url(url)
@@ -40,20 +43,53 @@ public class Network {
 
     public static String parseResponse(String TAG, Response response) {
         // 解析响应
-        String responseData = null;
+        String responseBody = null;
         try {
-            responseData = response.body().string();
+            responseBody = response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 只在debug时才打印,不会影响正常运行时的性能
-        Log.e(TAG, "onResponse: " + responseData);
+        Log.e(TAG, "onResponse: " + responseBody);
         try {
-            JSONObject responseJsonObject = new JSONObject(responseData);
+            JSONObject responseJsonObject = new JSONObject(responseBody);
             return (String) responseJsonObject.get("message");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getUrl(String url, String path, HashMap<String, String> params) {
+        url = NetworkAPI.SERVER_ADDRESS + path;
+        for (Map.Entry param : params.entrySet()) {
+            url += param.getKey() + "=" + param.getValue() + "&";
+        }
+        return url;
+    }
+
+    /**
+     * @param path
+     * @param params
+     * @return resultVO
+     */
+    public static JSONObject query(String path, HashMap<String, String> params) {
+
+
+
+        return null;
+    }
+
+    public static boolean isSuccess(JSONObject resultVO) {
+        if (resultVO == null) {
+            Log.e("NetworkAPI.java", "resultVO为空");
+            return false;
+        }
+        String message = (String) JSONUtils.get(resultVO, "message");
+        if ("success".equals(message)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

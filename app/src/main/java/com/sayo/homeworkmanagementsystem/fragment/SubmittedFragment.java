@@ -17,7 +17,7 @@ import com.sayo.homeworkmanagementsystem.activity.UpdateActity;
 public class SubmittedFragment extends Fragment {
     private LinearLayout addBook;
     private LinearLayout updateBook;
-    private String username;
+    private String userId;
 
     @Nullable
     @Override
@@ -31,7 +31,7 @@ public class SubmittedFragment extends Fragment {
         addBook = view.findViewById(R.id.ly_addBook);
         updateBook = view.findViewById(R.id.ly_updateBook);
 
-        username = getArguments().getString("username");
+        userId = getArguments().getString("userId");
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class SubmittedFragment extends Fragment {
         updateBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (username.equals("admin")) {
+                if (userId.equals("17002")) {
                     startActivity(new Intent(getActivity(), UpdateActity.class));
                 } else {
                     Toast.makeText(getActivity(), "对不起您未有该权限，请联系管理员", Toast.LENGTH_SHORT).show();

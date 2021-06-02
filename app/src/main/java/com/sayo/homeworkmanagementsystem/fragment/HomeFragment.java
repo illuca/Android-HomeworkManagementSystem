@@ -17,7 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Network;
+import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import com.sayo.homeworkmanagementsystem.activity.XiangQingActivity;
 import com.sayo.homeworkmanagementsystem.bean.Book;
 import com.google.gson.Gson;
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
     //分页搜索显示的数据 -- 默认显示全部
     private void selectFenYe(String name, int page) {
         JSONObject jsonObject = new JSONObject();
-        String url = Network.SERVER_ADDRESS + "/item/findByPageName?name=" + name + "&currentPage=" + page + "&pageSize=10";
+        String url = NetworkAPI.SERVER_ADDRESS + "/item/findByPageName?name=" + name + "&currentPage=" + page + "&pageSize=10";
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override

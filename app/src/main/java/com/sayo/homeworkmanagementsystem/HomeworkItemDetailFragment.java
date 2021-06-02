@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.sayo.homeworkmanagementsystem.dummy.DummyContent;
+import com.sayo.homeworkmanagementsystem.fragment.HomeworkItemListActivity;
 
 /**
  * A fragment representing a single HomeworkItem detail screen.

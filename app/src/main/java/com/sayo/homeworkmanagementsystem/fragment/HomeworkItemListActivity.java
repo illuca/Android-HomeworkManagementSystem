@@ -1,4 +1,4 @@
-package com.sayo.homeworkmanagementsystem;
+package com.sayo.homeworkmanagementsystem.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sayo.homeworkmanagementsystem.HomeworkItemDetailActivity;
+import com.sayo.homeworkmanagementsystem.HomeworkItemDetailFragment;
+import com.sayo.homeworkmanagementsystem.R;
 import com.sayo.homeworkmanagementsystem.dummy.DummyContent;
 
 import java.util.List;
