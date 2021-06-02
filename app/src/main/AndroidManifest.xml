@@ -2,45 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.sayo.homeworkmanagementsystem">
 
-    <!--    允许网络请求-->
+    <!-- 允许网络请求 -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
-            android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:usesCleartextTraffic="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:usesCleartextTraffic="true">
+        <activity
+                android:name=".HomeworkItemListActivity"
+                android:label="@string/title_homeworkitem_list"
+                android:theme="@style/NoActionBar">
 
+        </activity>
         <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.BanBenActivity"></activity>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.UpdateItemActivity"/>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.UpdateActity"/>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.AddActivity"/>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.XiangQingActivity"/>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.MenuActivity"></activity> <!-- 9.0闪退 -->
+                android:name=".HomeworkItemDetailActivity"
+                android:label="@string/title_homeworkitem_detail"
+                android:parentActivityName=".HomeworkItemListActivity"
+                android:theme="@style/NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.sayo.homeworkmanagementsystem.HomeworkItemListActivity"/>
+        </activity>
+        <activity android:name=".activity.BanBenActivity"/>
+        <activity android:name=".activity.UpdateItemActivity"/>
+        <activity android:name=".activity.UpdateActity"/>
+        <activity android:name=".activity.AddActivity"/>
+        <activity android:name=".activity.XiangQingActivity"/>
+        <activity android:name=".activity.MenuActivity"/> <!-- 9.0闪退 -->
         <uses-library
                 android:name="org.apache.http.legacy"
                 android:required="false"/>
 
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.RegistActivity"/>
-        <activity
-                android:name="com.sayo.homeworkmanagementsystem.activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity android:name=".activity.RegistActivity"/>
+        <activity android:name=".activity.LoginActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN"/>-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--            </intent-filter>-->
         </activity>
-
     </application>
-
 
 </manifest>

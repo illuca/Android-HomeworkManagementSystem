@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.sayo.homeworkmanagementsystem.R;
 import com.sayo.homeworkmanagementsystem.bean.Book;
 import com.google.gson.Gson;
-import com.sayo.homeworkmanagementsystem.utils.Config;
+import com.sayo.homeworkmanagementsystem.utils.Network;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -143,7 +143,7 @@ public class UpdateActity extends AppCompatActivity {
     //分页搜索显示的数据 -- 默认显示全部
     private  void selectFenYe(String name,int page){
         JSONObject jsonObject = new JSONObject();
-        String url = Config.SERVER_ADDRESS +"/item/findByPageName?name="+name+"&currentPage="+page+"&pageSize=10";
+        String url = Network.SERVER_ADDRESS +"/item/findByPageName?name="+name+"&currentPage="+page+"&pageSize=10";
         RequestQueue requestQueue = Volley.newRequestQueue(UpdateActity.this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -233,7 +233,7 @@ public class UpdateActity extends AppCompatActivity {
     //删除请求
     private void  deleteInfo(int id){
         JSONObject jsonObject = new JSONObject();
-        String url= Config.SERVER_ADDRESS +"/item/deleteItem/?id="+id+"";
+        String url= Network.SERVER_ADDRESS +"/item/deleteItem/?id="+id+"";
         RequestQueue requestQueue=Volley.newRequestQueue(UpdateActity.this);
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override

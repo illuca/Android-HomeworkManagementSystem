@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.utils.Config;
+import com.sayo.homeworkmanagementsystem.utils.Network;
 import com.sayo.homeworkmanagementsystem.utils.Md5;
 import okhttp3.*;
 import org.json.JSONException;
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                         loginStudent.setChecked(true);
                         int userType = getUserType();
 
-                        Response response = login(_userId, login_password.getText().toString(), userType);
+                        Response response = Network.login(_userId, login_password.getText().toString(), userType);
                         if (response == null) {
                             // 访问服务器失败
                             Log.d("error", "网络连接失败");
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } else {
                             // 访问服务器成功
-                            final String message = (String) parseResponse(response);
+                            final String message = (String) Network.parseResponse(TAG, response);
                             if ("success".equals(message)) {
                                 // 登录成功
                                 runOnUiThread(new Runnable() {
@@ -96,53 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 }).start();
             }
         });
-    }
-
-    private String parseResponse(Response response) {
-        // 解析响应
-        String responseData = null;
-        try {
-            responseData = response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // 只在debug时才打印,不会影响正常运行时的性能
-        Log.e(TAG, "onResponse: " + responseData);
-        try {
-            JSONObject responseJsonObject = new JSONObject(responseData);
-            return (String) responseJsonObject.get("message");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Response login(String userId, String password, int userType) {
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("userId", userId);
-            jsonObject.put("password", password);
-            jsonObject.put("userType", userType);
-
-            MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
-            OkHttpClient okHttpClient = new OkHttpClient();
-            RequestBody requestBody = RequestBody.create(mediaType, jsonObject.toString());
-
-            String url = Config.SERVER_ADDRESS + "/user/login";
-            // String url = "https://www.bilibili.com";
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(requestBody)
-                    .build();
-
-            Response response = okHttpClient.newCall(request).execute();
-            return response;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     // 获取用户身份
