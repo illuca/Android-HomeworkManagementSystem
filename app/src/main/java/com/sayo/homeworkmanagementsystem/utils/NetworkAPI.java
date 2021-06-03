@@ -1,7 +1,10 @@
 package com.sayo.homeworkmanagementsystem.utils;
 
 import android.util.Log;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +65,7 @@ public class NetworkAPI {
 
     public static String getUrl(String url, String path, HashMap<String, String> params) {
         url = NetworkAPI.SERVER_ADDRESS + path;
-        for (Map.Entry param : params.entrySet()) {
+        for (Map.Entry<String, String> param : params.entrySet()) {
             url += param.getKey() + "=" + param.getValue() + "&";
         }
         return url;
@@ -73,11 +76,31 @@ public class NetworkAPI {
      * @param params
      * @return resultVO
      */
-    public static JSONObject query(String path, HashMap<String, String> params) {
+    public static LiveData<JSONObject> query(String path, HashMap<String, String> params) {
+        LiveData<JSONObject> result = new MutableLiveData<JSONObject>();
 
+        OkHttpClient client = new OkHttpClient();
+        NetworkAPI.url = NetworkAPI.SERVER_ADDRESS + "/student/homework/page/count?homeworkId=&homeworkTitle=";
+        Request request = new Request.Builder()
+                .url(NetworkAPI.url)
+                .build();
 
+        client.newCall(request).enqueue(new Callback() {
+            /* override other methods here */
 
-        return null;
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                JSONObject resultVO = JSONUtils.newJSON(result);
+                ((MutableLiveData) result).postValue(resultVO);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+        });
+        return result;
     }
 
     public static boolean isSuccess(JSONObject resultVO) {

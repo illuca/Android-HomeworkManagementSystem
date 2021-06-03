@@ -100,14 +100,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 viewPager.setCurrentItem(1);
-                Intent intent = new Intent();
                 // String userId = intent.getStringExtra("userId");
                 // setContentView(R.layout.activity_menu);
-
-                JSONObject queryForm = new JSONObject();
-                JSONUtils.put(queryForm, "homeworkId", "");
-                JSONUtils.put(queryForm, "homeTitle", "");
-                HomeworkItemFragment.query(queryForm);
             }
         });
 
