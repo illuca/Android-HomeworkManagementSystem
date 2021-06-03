@@ -77,7 +77,7 @@ public class NetworkAPI {
      * @return resultVO
      */
     public static LiveData<JSONObject> query(String path, HashMap<String, String> params) {
-        LiveData<JSONObject> result = new MutableLiveData<JSONObject>();
+        LiveData<JSONObject> liveData = new MutableLiveData<JSONObject>();
 
         OkHttpClient client = new OkHttpClient();
         NetworkAPI.url = NetworkAPI.SERVER_ADDRESS + "/student/homework/page/count?homeworkId=&homeworkTitle=";
@@ -90,9 +90,8 @@ public class NetworkAPI {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                JSONObject resultVO = JSONUtils.newJSON(result);
-                ((MutableLiveData) result).postValue(resultVO);
+                JSONObject resultVO = JSONUtils.newJSON(response.body().string());
+                ((MutableLiveData) liveData).postValue(resultVO);
             }
 
             @Override
@@ -100,7 +99,7 @@ public class NetworkAPI {
 
             }
         });
-        return result;
+        return liveData;
     }
 
     public static boolean isSuccess(JSONObject resultVO) {

@@ -23,10 +23,6 @@ import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
 
-interface Operation {
-    void call();
-}
-
 /**
  * A fragment representing a list of Items.
  */
@@ -93,17 +89,13 @@ public class HomeworkItemFragment extends Fragment {
     }
 
     public void query(JSONObject queryForm) {
-        new Thread(new Runnable() {
+
+        NetworkAPI.query(NetworkAPI.url, null).observe(getActivity(), new Observer<JSONObject>() {
             @Override
-            public void run() {
-                NetworkAPI.query(NetworkAPI.url, null).observe(getViewLifecycleOwner(), new Observer<JSONObject>() {
-                    @Override
-                    public void onChanged(JSONObject result) {
-                        System.out.println(result);
-                    }
-                });
+            public void onChanged(JSONObject result) {
+                System.out.println(result);
             }
-        }).start();
+        });
     }
 
     public static void getPage(int pageIndex) {
