@@ -14,7 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.sayo.homeworkmanagementsystem.R;
-import com.sayo.homeworkmanagementsystem.bean.Book;
+import com.sayo.homeworkmanagementsystem.bean.Page;
 import com.google.gson.Gson;
 import com.sayo.homeworkmanagementsystem.utils.NetworkAPI;
 import org.json.JSONException;
@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 
 public class UpdateActity extends AppCompatActivity {
     private ListView mlistView;
-   private BaseAdapter adapter;
+    private BaseAdapter adapter;
     private TextView tvShangye;
     private TextView tvNext;
     private EditText edtYeMa;
@@ -46,27 +46,26 @@ public class UpdateActity extends AppCompatActivity {
         tvShangye = findViewById(R.id.tv_shangye);
         tvCurrentPage = findViewById(R.id.tv_currentPage);
         edtYeMa = findViewById(R.id.edt_yema);
-        btnTiaozhuan =findViewById(R.id.btn_tiaozhuan);
-        bookName=findViewById(R.id.edt_bookName);
-        souSuo=findViewById(R.id.search_btn);
-     shuaxin=findViewById(R.id.shuaxinshuju);
+        btnTiaozhuan = findViewById(R.id.btn_tiaozhuan);
+        bookName = findViewById(R.id.edt_bookName);
+        souSuo = findViewById(R.id.search_btn);
+        shuaxin = findViewById(R.id.shuaxinshuju);
 
-     shuaxin.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             String bookNameStr = bookName.getText().toString().trim();
-             try {
-                 String encode = URLEncoder.encode(bookNameStr, "utf-8");
-                 selectFenYe(encode,page);
-             } catch (UnsupportedEncodingException e) {
-                 e.printStackTrace();
-             }
-         }
-     });
-
+        shuaxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String bookNameStr = bookName.getText().toString().trim();
+                try {
+                    String encode = URLEncoder.encode(bookNameStr, "utf-8");
+                    selectFenYe(encode, page);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         String bookNameStr = bookName.getText().toString().trim();
-        selectFenYe(bookNameStr,1);
+        selectFenYe(bookNameStr, 1);
         //上一页
         tvShangye.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +74,13 @@ public class UpdateActity extends AppCompatActivity {
                     String bookNameStr = bookName.getText().toString().trim();
                     try {
                         String encode = URLEncoder.encode(bookNameStr, "utf-8");
-                        selectFenYe(encode,--page);
+                        selectFenYe(encode, --page);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                 } else {
                     Toast.makeText(UpdateActity.this, "当前第一页", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
         //下一页
@@ -93,7 +91,7 @@ public class UpdateActity extends AppCompatActivity {
                     String bookNameStr = bookName.getText().toString().trim();
                     try {
                         String encode = URLEncoder.encode(bookNameStr, "utf-8");
-                        selectFenYe(encode,++page);
+                        selectFenYe(encode, ++page);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -112,13 +110,12 @@ public class UpdateActity extends AppCompatActivity {
                     String bookNameStr = bookName.getText().toString().trim();
                     try {
                         String encode = URLEncoder.encode(bookNameStr, "utf-8");
-                        selectFenYe(encode,page);
+                        selectFenYe(encode, page);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                 } else {
                     Toast.makeText(UpdateActity.this, "超过最大页数", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -130,34 +127,32 @@ public class UpdateActity extends AppCompatActivity {
                 String bookNameStr = bookName.getText().toString().trim();
                 try {
                     String encode = URLEncoder.encode(bookNameStr, "utf-8");
-                    selectFenYe(encode,1);
+                    selectFenYe(encode, 1);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-
             }
         });
-
     }
 
     //分页搜索显示的数据 -- 默认显示全部
-    private  void selectFenYe(String name,int page){
+    private void selectFenYe(String name, int page) {
         JSONObject jsonObject = new JSONObject();
-        String url = NetworkAPI.SERVER_ADDRESS +"/item/findByPageName?name="+name+"&currentPage="+page+"&pageSize=10";
+        String url = NetworkAPI.SERVER_ADDRESS + "/item/findByPageName?name=" + name + "&currentPage=" + page + "&pageSize=10";
         RequestQueue requestQueue = Volley.newRequestQueue(UpdateActity.this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
 
                 Gson gson = new Gson();
-                final Book book = gson.fromJson(jsonObject.toString(), Book.class);
-                int currentPage = book.getCurrentPage();
+                final Page page = gson.fromJson(jsonObject.toString(), Page.class);
+                int currentPage = page.getPageNo();
                 tvCurrentPage.setText("第" + currentPage + "页");
-                totalPage = book.getTotalPage();
+                totalPage = page.getPageTotal();
                 adapter = new BaseAdapter() {
                     @Override
                     public int getCount() {
-                        return book.getItems().size();
+                        return page.getItems().size();
                     }
 
                     @Override
@@ -179,47 +174,45 @@ public class UpdateActity extends AppCompatActivity {
                         TextView info = view.findViewById(R.id.item_bookInfo);
                         TextView update = view.findViewById(R.id.item_bookUpdate);
                         final TextView delete = view.findViewById(R.id.item_bookDelete);
-                        name.setText("书名:"+book.getItems().get(i).getBook_name());
-                        user.setText("作者:"+book.getItems().get(i).getBook_author());
-                        info.setText("简介:"+book.getItems().get(i).getBook_info());
+                        // name.setText("书名:"+ page.getItems().get(i).getHomeworkTitle());
+                        // user.setText("作者:"+ page.getItems().get(i).getBook_author());
+                        // info.setText("简介:"+ page.getItems().get(i).getHomeworkContent());
                         update.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                int id = book.getItems().get(i).getId();
-                              String name= book.getItems().get(i).getBook_name();
-                              String shutu= book.getItems().get(i).getBook_img();
-                              String author=book.getItems().get(i).getBook_author();
-                              String info=book.getItems().get(i).getBook_info();
-                              String lianjie=book.getItems().get(i).getBook_download();
-                              Intent intent=new Intent(UpdateActity.this, com.sayo.homeworkmanagementsystem.activity.UpdateItemActivity.class);
-                              Bundle bundle=new Bundle();
-                              bundle.putString("name",name);
-                              bundle.putString("id", String.valueOf(id));
-                              bundle.putString("shutu",shutu);
-                              bundle.putString("author",author);
-                              bundle.putString("info",info);
-                              bundle.putString("lianjie",lianjie);
-                              intent.putExtras(bundle);
-                              startActivity(intent);
+                                // int id = page.getItems().get(i).getHomeworkId();
+                                // String name= page.getItems().get(i).getHomeworkTitle();
+                                // String shutu= page.getItems().get(i).getBook_img();
+                                // String author= page.getItems().get(i).getBook_author();
+                                // String info= page.getItems().get(i).getHomeworkContent();
+                                // String lianjie= page.getItems().get(i).getBook_download();
+                                Intent intent = new Intent(UpdateActity.this, com.sayo.homeworkmanagementsystem.activity.UpdateItemActivity.class);
+                                // Bundle bundle=new Bundle();
+                                // bundle.putString("name",name);
+                                // bundle.putString("id", String.valueOf(id));
+                                // bundle.putString("shutu",shutu);
+                                // bundle.putString("author",author);
+                                // bundle.putString("info",info);
+                                // bundle.putString("lianjie",lianjie);
+                                // intent.putExtras(bundle);
+                                startActivity(intent);
                             }
                         });
                         delete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                int id = book.getItems().get(i).getId();
-                                deleteInfo(id);
-                                book.getItems().remove(i);
+                                // int id = page.getItems().get(i).getHomeworkId();
+                                // deleteInfo(id);
+                                page.getItems().remove(i);
                                 adapter.notifyDataSetChanged();
-
                             }
                         });
-                        Glide.with(UpdateActity.this).load(book.getItems().get(i).getBook_img()).into(imageView);
+                        // Glide.with(UpdateActity.this).load(page.getItems().get(i).getBook_img()).into(imageView);
 
                         return view;
                     }
                 };
                 mlistView.setAdapter(adapter);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -231,18 +224,18 @@ public class UpdateActity extends AppCompatActivity {
     }
 
     //删除请求
-    private void  deleteInfo(int id){
+    private void deleteInfo(int id) {
         JSONObject jsonObject = new JSONObject();
-        String url= NetworkAPI.SERVER_ADDRESS +"/item/deleteItem/?id="+id+"";
-        RequestQueue requestQueue=Volley.newRequestQueue(UpdateActity.this);
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
+        String url = NetworkAPI.SERVER_ADDRESS + "/item/deleteItem/?id=" + id + "";
+        RequestQueue requestQueue = Volley.newRequestQueue(UpdateActity.this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {
                     String info = jsonObject.getString("info");
-                    if(info.equals("删除成功")){
+                    if (info.equals("删除成功")) {
                         Toast.makeText(UpdateActity.this, "删除成功", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(UpdateActity.this, "删除失败", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {

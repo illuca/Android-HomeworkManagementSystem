@@ -14,18 +14,18 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyHomeworkItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHomeworkItemRecyclerViewAdapter.ViewHolder> {
+public class MyHomeworkSubmittedItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHomeworkSubmittedItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
 
-    public MyHomeworkItemRecyclerViewAdapter(List<DummyItem> items) {
+    public MyHomeworkSubmittedItemRecyclerViewAdapter(List<DummyItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_homework_item, parent, false);
+                .inflate(R.layout.fragment_homework_submitted_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,8 +50,8 @@ public class MyHomeworkItemRecyclerViewAdapter extends RecyclerView.Adapter<MyHo
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.homework_item_id_text_view);
-            mContentView = (TextView) view.findViewById(R.id.homework_item_content_text_view);
+            mIdView = (TextView) view.findViewById(R.id.item_number);
+            mContentView = (TextView) view.findViewById(R.id.content);
         }
 
         @Override

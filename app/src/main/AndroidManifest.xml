@@ -13,21 +13,6 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:usesCleartextTraffic="true">
-        <activity
-                android:name=".fragment.HomeworkItemListActivity"
-                android:label="@string/title_homeworkitem_list"
-                android:theme="@style/NoActionBar">
-
-        </activity>
-        <activity
-                android:name=".HomeworkItemDetailActivity"
-                android:label="@string/title_homeworkitem_detail"
-                android:parentActivityName=".fragment.HomeworkItemListActivity"
-                android:theme="@style/NoActionBar">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.sayo.homeworkmanagementsystem.fragment.HomeworkItemListActivity"/>
-        </activity>
         <activity android:name=".activity.BanBenActivity"/>
         <activity android:name=".activity.UpdateItemActivity"/>
         <activity android:name=".activity.UpdateActity"/>

@@ -72,17 +72,16 @@ public class NetworkAPI {
     }
 
     /**
-     * @param path
+     * @param url
      * @param params
      * @return resultVO
      */
-    public static LiveData<JSONObject> query(String path, HashMap<String, String> params) {
+    public static LiveData<JSONObject> query(String url, HashMap<String, String> params) {
         LiveData<JSONObject> liveData = new MutableLiveData<JSONObject>();
-
         OkHttpClient client = new OkHttpClient();
-        NetworkAPI.url = NetworkAPI.SERVER_ADDRESS + "/student/homework/page/count?homeworkId=&homeworkTitle=";
+
         Request request = new Request.Builder()
-                .url(NetworkAPI.url)
+                .url(url)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
